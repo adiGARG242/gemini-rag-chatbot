@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  # 1. ETL: Loads hospital data into Neo4j
+  hospital_neo4j_etl:
+    build:
+      context: ./hospital_neo4j_etl
+    env_file:
+      - .env
+    restart: on-failure
+
+  # 2. FastAPI backend
+  api:
+    build: ./chatbot_api
+    container_name: chatbot_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - hospital_neo4j_etl
+    restart: always
+
+  # 3. Streamlit UI frontend
+  ui:
+    build: ./chatbot_ui
+    container_name: chatbot_ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    env_file:
+      - chatbot_ui/.env
+    environment:
+      API_URL: "http://api:8000/chat"
+    restart: always

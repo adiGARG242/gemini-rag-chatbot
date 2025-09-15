@@ -42,7 +42,7 @@ A **tool-enabled agent** (ReAct pattern) orchestrates between these two pipeline
 flowchart LR
   subgraph Data
     CSV[Hospital CSV Data]
-    Neo4j[Neo4j AuraDB (Graph + Vector Index)]
+    Neo4j["Neo4j AuraDB: Graph + Vector Index"]
   end
 
   subgraph Pipelines
@@ -52,7 +52,7 @@ flowchart LR
   end
 
   subgraph Interfaces
-    API[FastAPI Backend (/chat)]
+    API["FastAPI Backend (/chat)"]
     UI[Streamlit UI]
   end
 
@@ -62,7 +62,6 @@ flowchart LR
   ReviewChain --> Agent
   CypherChain --> Agent
   Agent --> API --> UI
-
 ```
 
 ### 🔎 Components in Detail

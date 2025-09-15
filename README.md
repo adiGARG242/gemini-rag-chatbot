@@ -41,22 +41,22 @@ A **tool-enabled agent** (ReAct pattern) orchestrates between these two pipeline
 ```mermaid
 flowchart LR
   subgraph Data
-    CSV[Hospital CSV Data]
+    CSV["Hospital CSV Data"]
     Neo4j["Neo4j AuraDB: Graph + Vector Index"]
   end
 
   subgraph Pipelines
-    ReviewChain[Review Vector Chain]
-    CypherChain[Cypher QA Chain]
-    Agent[RAG Agent (ReAct Tools)]
+    ReviewChain["Review Vector Chain"]
+    CypherChain["Cypher QA Chain"]
+    Agent["RAG Agent (ReAct Tools)"]
   end
 
   subgraph Interfaces
     API["FastAPI Backend (/chat)"]
-    UI[Streamlit UI]
+    UI["Streamlit UI"]
   end
 
-  CSV --> ETL[ETL Script] --> Neo4j
+  CSV --> ETL["ETL Script"] --> Neo4j
   Neo4j --> ReviewChain
   Neo4j --> CypherChain
   ReviewChain --> Agent
